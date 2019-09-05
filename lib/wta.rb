@@ -1,5 +1,6 @@
 require 'nokogiri'
-require 'open-uri'
+#require 'open-uri'
+require 'open_uri_redirections'
 
 module Wta
   RED   = 3
@@ -42,7 +43,7 @@ module Wta
   end
 
   def self.pull_statuses(region)
-    @html = Nokogiri::HTML(open(URI.parse('http://status.aws.amazon.com/')))
+    @html = Nokogiri::HTML(open(URI.parse('http://status.aws.amazon.com/'), :allow_redirections => :all))
     @all_status_images = @html.css('#current_events_block #' + region.upcase + '_block td img')
   end
 end
